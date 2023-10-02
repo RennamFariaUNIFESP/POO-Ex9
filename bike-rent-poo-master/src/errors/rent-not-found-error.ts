@@ -1,1 +1,6 @@
-import { RentNotFoundError } from "./errors/rent-not-found-error";
+export class RentNotFoundError extends Error {
+  public readonly name = 'RentNotFoundError'
+  constructor () {
+    super('Rent no found.')
+  }
+}
