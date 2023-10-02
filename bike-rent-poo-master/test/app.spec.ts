@@ -126,4 +126,13 @@ describe('App', () => {
         await app.registerUser(user)
         await expect(app.findUser(user.email)).resolves.toEqual(user)
     })
+
+    it('should throw rent not found error when trying to return a bike unregistered on rent', async () => {
+        const app = new App(userRepo, bikeRepo, rentRepot)
+        const user = new User('Jose', 'jose@mail.com', '1234')
+        await app.registerUser(user)
+        const bike = new Bike('caloi mountainbike', 'mountain bike', 1234, 1234, 100.0, 'My bike', 5, [])
+        app.registerBike(bike)
+        await expect(app.returnBike(bike.id, user.email)).rejects.toThrow(RentNotFoundError)
+    })
 })
